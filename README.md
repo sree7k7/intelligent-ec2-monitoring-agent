@@ -32,7 +32,6 @@ Recommendation: Monitor for 10 minutes. Scale to t3.large if sustained >90%.
 - Python 3.12+
 - AWS Account with EC2, CloudWatch, SNS access
 - AgentCore CLI installed
-- IAM, SNS, CloudWatch, EC2, and SNS permissions configured
 - AWS CLI configured with credentials
 
 ### Installation

@@ -10,8 +10,8 @@ import os
 # Create this topic manually in AWS Console before deploying
 SNS_TOPIC_ARN = os.getenv(
     'SNS_TOPIC_ARN',
-    'arn:aws:sns:us-east-1:123456789012:ops-alerts'  # Replace with your topic ARN
-)
+    'arn:aws:sns:us-east-1:230150030147:AgentNotificationTopic'  # Replace with your topic ARN
+)   
 
 # CPU Monitoring Configuration
 CPU_THRESHOLD = float(os.getenv('CPU_THRESHOLD', '80.0'))  # Alert when CPU exceeds this %

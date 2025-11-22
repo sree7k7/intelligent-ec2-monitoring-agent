@@ -1,0 +1,1 @@
+{"statusCode": 200, "body": "{\"instances_checked\": 1, \"high_cpu_count\": 1, \"alerts_sent\": 1, \"threshold\": 80.0, \"high_cpu_instances\": [\"AwsBasicStack/BackupInstance0: 100.0%\"]}"}
