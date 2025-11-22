@@ -11,7 +11,10 @@ import os
 SNS_TOPIC_ARN = os.getenv(
     'SNS_TOPIC_ARN',
     'arn:aws:sns:us-east-1:230150030147:AgentNotificationTopic'  # Replace with your topic ARN
-)   
+)
+
+# sns endpoint e.g: email
+sns_endpoint = os.getenv('sns_endpoint', 'xxxx@gmail.com')
 
 # CPU Monitoring Configuration
 CPU_THRESHOLD = float(os.getenv('CPU_THRESHOLD', '80.0'))  # Alert when CPU exceeds this %

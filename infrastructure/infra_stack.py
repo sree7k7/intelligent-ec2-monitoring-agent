@@ -83,9 +83,18 @@ class AgentStack(Stack):
             topic_name=SNS_TOPIC_NAME
         )
 
-        # Note: Subscribe to this topic manually via AWS Console or CLI
-        # to avoid resubscription emails on every deployment
-        # Command: aws sns subscribe --topic-arn <topic-arn> --protocol email --notification-endpoint sreefriend7k7@gmail.com
+        # Create SNS subscription, confirm submission
+        sns.Subscription(
+            self,
+            "AgentSubscription",
+            topic=topic,
+            protocol=sns.SubscriptionProtocol.EMAIL,
+            endpoint=sns_endpoint
+        )
+        print(f"✓ Created SNS topic: {topic.topic_arn}")
+        # auto subcription
+
+
 
         # Create Lambda function
         agent_lambda = lambda_.Function(
