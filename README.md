@@ -1,6 +1,6 @@
 # Intelligent EC2 CPU Monitoring Agent
 
-> AI-powered monitoring solution that provides intelligent, context-aware alerts for EC2 CPU usage using Claude LLM.
+> AI-powered monitoring solution that provides intelligent, context-aware alerts for EC2 CPU usage using Claude LLM. Scale it based on your needs.
 
 ![alt text](pics/intelligent.png)
 
@@ -64,8 +64,17 @@ ALERT_COOLDOWN_MINUTES = 15
 ### Deployment
 
 ```bash
-# configure and Deploy with AgentCore
-agentcore configure -e agent.py
+# Deploy the infra and agent
+sh deploy.sh
+
+# clean
+sh clean.sh
+
+# update the agent or infra
+sh deploy.sh true
+
+# you can deploy updates using 
+cdk deploy
 agentcore launch
 
 ```
@@ -105,13 +114,13 @@ The agent will automatically:
 ## Architecture
 
 ```
-EventBridge (5 min) → AgentCore Runtime → Claude LLM Agent
-                                            ↓
-                                    CloudWatch Metrics
-                                            ↓
-                                    Analysis & Context
-                                            ↓
-                                    SNS Alerts → Email/SMS
+EventBridge (5 min) → lambda → AgentCore Runtime → Claude LLM Agent
+                                              ↓
+                                      CloudWatch Metrics
+                                              ↓
+                                      Analysis & Context
+                                              ↓
+                                      SNS Alerts → Email/SMS
 ```
 
 ### Components
@@ -124,21 +133,27 @@ EventBridge (5 min) → AgentCore Runtime → Claude LLM Agent
 ## 📁 Project Structure
 
 ```
-ec2-cpu-monitoring-agent/
-├── agent.py                     # Main agent code
-├── config.py                    # Configuration
-├── requirements.txt             # Dependencies
-│
-├── tools/                       # Agent tools
-│   ├── cloudwatch_tool.py      # Get CPU metrics
-│   ├── sns_tool.py             # Send alerts
-│   ├── monitoring_tool.py      # Check all instances
-│   └── list_instances_tool.py  # List with CPU
-│
-├── ask.py                       # Interactive CLI    
-└── README.md                    # This file
+intelligent-ec2-monitoring-agent/
+├── README.md
+├── agent.py
+├── app.py
+├── ask.py
+├── clean.sh
+├── config.py
+├── deploy.sh
+├── infrastructure
+│   ├── cdk.out
+│   └── infra_stack.py
+├── lambda
+│   └── agent_trigger.py
+├── requirements.txt
+├── response.json
+└── tools
+    ├── cloudwatch_tool.py
+    ├── list_instances_tool.py
+    ├── monitoring_tool.py
+    └── sns_tool.py
 ```
-
 
 
 ### Example 2: Investigate High CPU
@@ -183,26 +198,6 @@ Estimated cost impact of scaling:
 - Current: t3.small = $15/month
 - Scaled: t3.large = $60/month
 - Recommendation: Wait and monitor first
-```
-
-
-## 🔐 IAM Permissions Required for agent
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeInstances",
-        "cloudwatch:GetMetricStatistics",
-        "sns:Publish"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
 ```
 
 ## 🛣️ Roadmap
