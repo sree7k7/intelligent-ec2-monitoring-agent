@@ -59,6 +59,7 @@ pip install -r requirements.txt
 SNS_TOPIC_ARN = "arn:aws:sns:us-east-1:123456789012:ops-alerts" # created manually
 CPU_THRESHOLD = 80.0
 ALERT_COOLDOWN_MINUTES = 15
+sns_endpoint = "abc@mail.com"
 ```
 
 ### Deployment
